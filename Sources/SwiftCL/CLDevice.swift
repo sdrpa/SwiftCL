@@ -19,14 +19,14 @@ public enum CLDeviceType {
    }
 }
 
-public class CLDevice {
+public struct CLDevice {
    public let deviceId: cl_device_id
 
    public init(id: cl_device_id) {
       self.deviceId = id
    }
 
-   public class func `default`(_ deviceType: CLDeviceType = .gpu) -> CLDevice? {
+   public static func `default`(_ deviceType: CLDeviceType = .gpu) -> CLDevice? {
       return CLPlatform.all.first?.getDevices(deviceType).first
    }
 
@@ -43,7 +43,7 @@ extension CLDevice: CustomStringConvertible {
 }
 
 extension CLDevice {
-   public class func getDefault(_ type: Int32) -> CLDevice {
+   public static func getDefault(_ type: Int32) -> CLDevice {
       let queue = gcl_create_dispatch_queue(cl_queue_flags(type), nil)
 
       let deviceId = gcl_get_device_id_with_dispatch_queue(queue!)

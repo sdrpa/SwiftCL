@@ -1,13 +1,13 @@
 import OpenCL
 
-public class CLPlatform {
+public struct CLPlatform {
 	public let platformId: cl_platform_id
 
 	public init(id: cl_platform_id) {
 		platformId = id
 	}
 	
-	public class var all: [CLPlatform] {
+	public static var all: [CLPlatform] {
 		var platformCount: cl_uint = 0
 		clGetPlatformIDs(0, nil, &platformCount)
 		

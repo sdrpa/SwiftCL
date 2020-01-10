@@ -41,7 +41,7 @@ public class CLContext {
 }
 
 extension CLContext {
-   public class func getDefault() throws -> CLContext {
+   public static func getDefault() throws -> CLContext {
       return try CLContext(type: cl_device_type(CL_DEVICE_TYPE_DEFAULT))
    }
 
