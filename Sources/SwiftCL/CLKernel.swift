@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public class CLKernel {
    public let kernel: cl_kernel

@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public class CLBuffer<T> {
    public var buffer: cl_mem

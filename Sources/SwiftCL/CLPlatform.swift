@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public struct CLPlatform {
 	public let platformId: cl_platform_id

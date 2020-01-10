@@ -1,4 +1,9 @@
+#if os(Linux)
+import COpenCL
+import Dispatch
+#else
 import OpenCL
+#endif
 
 public enum CLDeviceType {
    case cpu
@@ -43,14 +48,14 @@ extension CLDevice: CustomStringConvertible {
 }
 
 extension CLDevice {
-   public static func getDefault(_ type: Int32) -> CLDevice {
-      let queue = gcl_create_dispatch_queue(cl_queue_flags(type), nil)
-
-      let deviceId = gcl_get_device_id_with_dispatch_queue(queue!)
-
-      let device = CLDevice(id: deviceId!)
-      return device
-   }
+//   public static func getDefault(_ type: Int32) -> CLDevice {
+//      let queue = gcl_create_dispatch_queue(cl_queue_flags(type), nil)
+//
+//      let deviceId = gcl_get_device_id_with_dispatch_queue(queue!)
+//
+//      let device = CLDevice(id: deviceId!)
+//      return device
+//   }
 
    public func getDeviceInfo<T>(_ deviceInfo: Int32) -> [T]? {
       // Determine the size of the value returned

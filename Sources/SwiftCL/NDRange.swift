@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public struct NDRange {
    var sizes: [size_t] = Array<size_t>(repeating: size_t(0), count: 3)

@@ -1,6 +1,10 @@
 import Foundation
 import SwiftCL
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 for platform in CLPlatform.all {
    for device in platform.getDevices(.all) {

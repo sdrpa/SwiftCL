@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public struct CLError: Error, CustomStringConvertible {
    public let status: cl_int
@@ -16,8 +20,8 @@ public struct CLError: Error, CustomStringConvertible {
 
 extension CLError {
    static func check(_ errorCode: cl_int) throws {
-      if errorCode != OpenCL.CL_SUCCESS {
-         throw CLError(errorCode)
-      }
+//      if errorCode != OpenCL.CL_SUCCESS {
+//         throw CLError(errorCode)
+//      }
    }
 }

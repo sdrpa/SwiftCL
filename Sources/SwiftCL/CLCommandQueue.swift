@@ -1,4 +1,8 @@
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 
 public struct CLCommandQueue {
    public let queue: cl_command_queue

@@ -1,5 +1,9 @@
 import Foundation
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 import SwiftCL
 
 struct MyKernel {

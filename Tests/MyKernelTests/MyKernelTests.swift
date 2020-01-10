@@ -1,9 +1,13 @@
 import XCTest
+#if os(Linux)
+import COpenCL
+#else
 import OpenCL
+#endif
 @testable import MyKernel
 
 final class MyKernelTests: XCTestCase {
-   let count = 1_000_000
+   let count = 10_000_000
 
    func testPerformanceGPU() {
       let xs = (0..<count).map { _ -> cl_float in Float.random(in: 1...count) }
