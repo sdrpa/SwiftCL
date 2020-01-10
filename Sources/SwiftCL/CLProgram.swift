@@ -1,6 +1,6 @@
 import OpenCL
 
-public class Program {
+public class CLProgram {
 	public let program: cl_program?
 	
 //	public convenience init(context: Context, programPath: String) throws {
@@ -9,7 +9,7 @@ public class Program {
 //		try self.init(context: context, programSource: programSource)
 //	}
 	
-	public init(context: Context, programSource: String) throws {
+	public init(context: CLContext, programSource: String) throws {
 		var status: cl_int = CL_SUCCESS
       self.program = programSource.withCString() { (cString) -> cl_program? in
 			var localCString: UnsafePointer<Int8>? = cString
@@ -19,7 +19,7 @@ public class Program {
 			}
 		}
 		
-		try ClError.check(status)
+		try CLError.check(status)
 	}
 
    deinit {
@@ -27,8 +27,10 @@ public class Program {
          clReleaseProgram(program)
       }
    }
+}
 
-	public func build(_ device: Device) throws {
+extension CLProgram {
+	public func build(_ device: CLDevice) throws {
 		var deviceId: cl_device_id? = device.deviceId
 		let status = clBuildProgram(program,
 		                            1,
@@ -44,7 +46,7 @@ public class Program {
 			var value = Array<CChar>(repeating: CChar(32), count: length)
 			clGetProgramBuildInfo(program, device.deviceId, cl_program_build_info(CL_PROGRAM_BUILD_LOG), length, &value, nil)
 			
-			throw ClError(err: status, errString: String(cString: &value))
+			throw CLError(status, description: String(cString: &value))
 		}
 	}
 }
