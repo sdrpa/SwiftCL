@@ -5,19 +5,12 @@ import OpenCL
 #endif
 
 public class CLKernel {
-   public let kernel: cl_kernel
+   public let kernel: cl_kernel?
 
    public init(program: CLProgram, kernelName: String) throws {
       var status: cl_int = CL_SUCCESS
-      self.kernel = kernelName.withCString() { cKernelName -> cl_kernel in
-         let sourceKernel = clCreateKernel(
-            program.program,
-            cKernelName,
-            &status)
-         guard let kernel = sourceKernel else {
-            fatalError()
-         }
-         return kernel
+      self.kernel = kernelName.withCString() { cKernelName -> cl_kernel? in
+         clCreateKernel(program.program, cKernelName, &status)
       }
       try CLError.check(status)
    }
