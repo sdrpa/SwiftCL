@@ -19,13 +19,14 @@ extension CLCommandQueue {
    public func enqueueNDRangeKernel(_ kernel: CLKernel, offset: NDRange, global: NDRange) throws {
       var globalWorkOffset = offset.sizes[0]
       var globalWorkSize = global.sizes[0]
+      //var localWorkSize = 32
       let error = clEnqueueNDRangeKernel(
-         queue,
-         kernel.kernel,
-         global.dimensions,
-         &globalWorkOffset,
-         &globalWorkSize,
-         nil,
+         queue, // command_queue
+         kernel.kernel, // kernel
+         global.dimensions, // work_dim
+         &globalWorkOffset, // global_work_offset
+         &globalWorkSize, // global_work_size
+         nil, //&localWorkSize,
          0,
          nil,
          nil)

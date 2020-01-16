@@ -21,6 +21,12 @@ public class CLKernel {
 }
 
 extension CLKernel {
+   public func setArg<T>(_ position: cl_uint, value: T) throws {
+      var copy = value
+      let error = clSetKernelArg(kernel, position, MemoryLayout<T>.size, &copy)
+      try CLError.check(error)
+   }
+   
    public func setArg<T>(_ position: cl_uint, buffer: CLBuffer<T>) throws {
       let error = clSetKernelArg(kernel, position, MemoryLayout<cl_mem>.size, &(buffer.buffer))
       try CLError.check(error)
